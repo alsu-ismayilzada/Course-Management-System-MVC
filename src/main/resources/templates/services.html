@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin panel</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .nav-link.link-dark:hover {
+            background-color: #0D6EFD;
+            color: white !important;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500&display=swap" rel="stylesheet">
+
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="/css/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body>
+
+<div class="row min-vh-100">
+
+    <div class="col-3">
+
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light min-vh-100" style="width: 280px;">
+            <a href="/admin" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-4">Scholar Course ADMIN</span>
+            </a>
+            <hr>
+            <ul class="nav nav-pills flex-column mb-auto">
+                <li class="nav-item">
+                    <a href="/admin/teachers" class="nav-link link-dark" aria-current="page">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
+                        Teacher
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/students" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>
+                        Students
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/services" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
+                        Services
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/courses" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                        Courses
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/events" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                        Events
+                    </a>
+                </li>
+                <li>
+                    <a href="/admin/contacts" class="nav-link link-dark">
+                        <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
+                        Contacts
+                    </a>
+                </li>
+
+            </ul>
+            <hr>
+            <div class="dropdown">
+                <div class="d-grid">
+                    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#logOutModal">
+                        Log out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-9">
+
+
+        <div class="mt-5">
+
+            <h6>Add new Service</h6>
+
+
+            <form th:action="@{/admin/services/edit}" method="post" th:object="${serviceRequest}">
+                <div class="mb-3">
+                    <label for="fullName" class="form-label">Name</label>
+                    <input th:field="${serviceRequest.name}" type="text" class="form-control" id="fullName" aria-describedby="emailHelp">
+                </div>
+                <div class="mb-3">
+                    <label for="instagramLink" class="form-label">Content</label>
+                    <input type="text" th:field="${serviceRequest.content}" class="form-control" id="instagramLink">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Content</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="service : ${services}">
+                <th th:text="${service.getId()}" scope="row">1</th>
+                <td th:text="${service.getName()}">Certificate</td>
+                <td th:text="${service.getContent()}">Online certificate</td>
+
+                <td>
+                    <button   type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+                        DELETE
+                    </button>
+                </td>
+                <td>
+                    <a th:href="@{|/admin/services/edit/${service.getId()}|}">
+                        <button type="button" class="btn btn-primary">
+                            <i class="bi bi-pencil-square"></i>
+                            EDIT
+                        </button>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="logOutModal" tabindex="-1" aria-labelledby="logOutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="logOutModalLabel">You are about to log out!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure ?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form action="/logout" method="post">
+                    <button type="submit" class="btn btn-danger">LOG OUT</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Do you submit to delete?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <form id="formDelete" action="/" method="post">
+                    <button type="submit" class="btn btn-danger">DELETE</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script th:inline="javascript">
+    function deleteService(service) {
+        document.getElementById('modalBody').innerHTML = service.name + " will be deleted";
+        document.getElementById('formDelete').action = "/admin/services/delete/" + service.id;
+    }
+</script>
+<script src="/js/jquery.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/click-scroll.js"></script>
+<script src="/js/custom.js"></script>
+
+</body>

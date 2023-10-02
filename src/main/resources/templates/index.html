@@ -399,7 +399,7 @@ https://templatemo.com/tm-586-scholar
           <div class="contact-us-content">
 
 
-            <form th:action="@{/contact}" th:object="${contact}" id="contact-form" action="" method="post">
+            <form action="/contact" th:object="${contact}" id="contact-form"  method="post">
               <div class="row">
                 <div class="col-lg-12">
                   <fieldset>
@@ -445,6 +445,22 @@ https://templatemo.com/tm-586-scholar
   <script src="/assets/js/owl-carousel.js"></script>
   <script src="/assets/js/counter.js"></script>
   <script src="/assets/js/custom.js"></script>
+
+  <script>
+    // Function to check if the "success" parameter exists in the URL
+    function checkSuccessParameter() {
+      // Get the URL's query string
+      var queryString = window.location.search;
+
+      // Check if the query string contains the "?success" parameter
+      if (queryString.includes('?success')) {
+        alert('The information was recorded. We will keep in touch with you.'); // You can customize the alert message
+      }
+    }
+
+    // Call the function to check for the "success" parameter
+    checkSuccessParameter();
+  </script>
 
   </body>
 </html>

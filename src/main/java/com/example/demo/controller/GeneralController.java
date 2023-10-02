@@ -30,9 +30,10 @@ public class GeneralController {
         modelAndView.addObject("teachers",teacherService.getAll());
         modelAndView.addObject("events",eventService.getAll());
         modelAndView.addObject("courses",courseService.getAll());
-      modelAndView.addObject("services",serviceService.getAll());
-      modelAndView.addObject("contact",new Contact());
+        modelAndView.addObject("services",serviceService.getAll());
+        modelAndView.addObject("contact",new Contact());;
         return modelAndView;
     }
+
 
 }
