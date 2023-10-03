@@ -17,17 +17,17 @@ public class ServiceImpl implements ServiceService {
 
     @Override
     public void addService(Service service) {
-
+        serviceRepository.save(service);
     }
 
     @Override
     public void deleteById(int id) {
-
+        serviceRepository.deleteById(id);
     }
 
     @Override
-    public Service getById(int id) {
-        return null;
+    public Service getById(Integer id) {
+        return serviceRepository.findById(id).get();
     }
 
     @Override

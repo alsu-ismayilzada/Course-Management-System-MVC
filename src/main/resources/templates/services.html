@@ -29,6 +29,16 @@
 </head>
 <body>
 
+<script th:inline="javascript">
+    function deleteService(button) {
+        var serviceId = button.getAttribute('data-service-id');
+        var serviceName = button.getAttribute('data-service-name');
+
+        document.getElementById('modalBody').innerHTML = serviceName + " will be deleted";
+        document.getElementById('formDelete').action = "/admin/services/delete/" + serviceId;
+    }
+</script>
+
 <div class="row min-vh-100">
 
     <div class="col-3">
@@ -126,13 +136,14 @@
                 <td th:text="${service.getContent()}">Online certificate</td>
 
                 <td>
-                    <button   type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-
+                    <button th:attr="data-service-id=${service.id}, data-service-name=${service.name}"
+                            onclick="deleteService(this)" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="bi bi-trash"></i>
                         DELETE
                     </button>
                 </td>
                 <td>
-                    <a th:href="@{|/admin/services/edit/${service.getId()}|}">
+                    <a th:href="@{/admin/services/edit/${service.getId()}}">
                         <button type="button" class="btn btn-primary">
                             <i class="bi bi-pencil-square"></i>
                             EDIT
@@ -186,12 +197,7 @@
     </div>
 </div>
 
-<script th:inline="javascript">
-    function deleteService(service) {
-        document.getElementById('modalBody').innerHTML = service.name + " will be deleted";
-        document.getElementById('formDelete').action = "/admin/services/delete/" + service.id;
-    }
-</script>
+
 <script src="/js/jquery.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/click-scroll.js"></script>

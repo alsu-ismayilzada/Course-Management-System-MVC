@@ -57,8 +57,8 @@ public class AdminController {
         modelAndView.addObject("serviceRequest",new Service());
         return modelAndView;
     }
-    @GetMapping( "/services/edit/{id}")
-    public ModelAndView servicesEdit(@PathVariable("id") Integer id){
+    @GetMapping ( "/services/edit/{id}")
+    public ModelAndView servicesEdit( @PathVariable("id") Integer id){
         Service service = serviceService.getById(id);
         ModelAndView modelAndView = new ModelAndView("services");
         modelAndView.addObject("service", service);
@@ -137,9 +137,9 @@ public class AdminController {
     }
     @GetMapping( "/students/edit/{id}")
     public ModelAndView studentsEdit(@PathVariable("id") Integer id){
-        Student student = studentService.getById(id);
         ModelAndView modelAndView = new ModelAndView("students");
-        modelAndView.addObject("students", student);
+        Student student = studentService.getById(id);
+        modelAndView.addObject("student", student);
         return modelAndView;
     }
 

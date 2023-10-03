@@ -119,13 +119,13 @@
             </tr>
             </thead>
             <tbody>
-            <tr th:each="student :${students}">
+            <tr th:each="student : ${students}">
                 <th th:text="${student.getId()}" scope="row">1</th>
                 <td th:text="${student.getName()}">Lale</td>
                 <td th:text="${student.getCourse()}">Frontend</td>
                 <td>
-                    <button  th:onclick="deleteTeacher([[${students}]])" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-
+                    <button  th:onclick="deleteStudent(${student})" type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        <i class="bi bi-trash"></i>
                         DELETE
                     </button>
                 </td>
